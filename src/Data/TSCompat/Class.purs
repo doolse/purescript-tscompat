@@ -10,7 +10,6 @@ import Prim.RowList as RL
 import React (class IsReactElement)
 import Type.Data.Boolean as B
 import Type.Data.Symbol as Sym
-import Type.Row (RProxy(..))
 
 class TsTypeExists t (rl :: RL.RowList) (opt:: B.Boolean) (o :: B.Boolean) | t rl -> o
 instance consCheck :: (IsEq t t2 opt eq, TsTypeExists t tail opt tailEq, B.Or eq tailEq out) 
