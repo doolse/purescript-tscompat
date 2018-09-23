@@ -11,7 +11,7 @@ In conjuction with [purescript-readts](http://github.com/doolse/purescript-readt
 |Type|TS type|Matches|
 |----|-------|-------|
 |`Any`|`any`|Anything|
-|`OneOf (typed :: TypeA, typed :: TypeB, typed :: TypeC)`|`(TypeA|TypeB|TypeC)`|Either one of TypeA,TypeB or TypeC|
+|`OneOf (typed :: TypeA, typed :: TypeB, typed :: TypeC)`|`(TypeA\|TypeB\|TypeC)`|Either one of TypeA,TypeB or TypeC|
 |`StringConst "text"`|`"text"`|An exact string|
 |`OptionRecord (optional :: TypeA, mandatory :: TypeB) (mandatory :: TypeB)`|`{optional? : TypeA; mandatory: TypeB }`|A record which must contain all the fields in the second row type
 
@@ -35,7 +35,7 @@ type DialogPropsO r = (
   fullWidth :: Boolean,
   scroll :: OneOf (
     typed :: StringConst ("paper"),
-    typed :: StringConst ("body")),
+    typed :: StringConst ("body"))
   | r)
 
 type DialogPropsM = (open :: Boolean)
