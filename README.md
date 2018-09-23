@@ -34,8 +34,8 @@ type DialogPropsO r = (
   fullScreen :: Boolean,
   fullWidth :: Boolean,
   scroll :: OneOf (
-    typed :: StringConst ("paper"),
-    typed :: StringConst ("body"))
+    typed :: StringConst "paper",
+    typed :: StringConst "body")
   | r)
 
 type DialogPropsM = (open :: Boolean)
@@ -55,6 +55,6 @@ dialog {key: 1}
 -- Fails because `open` is not specified
 dialog {open: true, scroll: body} 
 -- Succeeds 
-dialog {open: false, fullWidth: toNullable $ Just true}
+dialog {open: false, key: "stringKey", fullWidth: toNullable $ Just true}
 -- Succeeds because optional fields can be Nullable
 ```
