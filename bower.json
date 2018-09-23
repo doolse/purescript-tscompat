@@ -6,6 +6,11 @@
     "bower_components",
     "output"
   ],
+  "license": "MIT",
+  "repository": {                                                           
+    "type": "git",                                                          
+    "url": "https://github.com/doolse/purescript-tscompat.git"              
+  },
   "dependencies": {
     "purescript-prelude": "^4.1.0",
     "purescript-react": "^6.1.0",
