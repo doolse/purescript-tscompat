@@ -11,9 +11,9 @@ In conjuction with [purescript-readts](http://github.com/doolse/purescript-readt
 |Type|TS type|Matches|
 |----|-------|-------|
 |`Any`|`any`|Anything|
-|`OneOf (typed :: TypeA, typed :: TypeB, typed :: TypeC)`|`(TypeA\|TypeB\|TypeC)`|Either one of TypeA,TypeB or TypeC|
+|`OneOf (typed :: A, typed :: B, typed :: C)`|`(A\|B\|C)`|Either one of A,B or C|
 |`StringConst "text"`|`"text"`|An exact string|
-|`OptionRecord (optional :: TypeA, mandatory :: TypeB) (mandatory :: TypeB)`|`{optional? : TypeA; mandatory: TypeB }`|A record which must contain all the fields in the second row type
+|`OptionRecord (optional :: A, mandatory :: B) (mandatory :: B)`|`{optional? : A; mandatory: B }`|A record which must contain all the fields in the second row type
 
 In addition to these equivalences the following additional rules apply:
 
