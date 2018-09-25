@@ -1,7 +1,7 @@
 module Data.TSCompat.Class where 
 
 import Data.Nullable (Nullable)
-import Data.TSCompat (Any, OneOf, OptionRecord)
+import Data.TSCompat (Any, OneOf, OptionRecord, StringConst)
 import Data.TSCompat.React (ReactNode)
 import Effect (Effect)
 import Effect.Uncurried (EffectFn1, EffectFn2)
@@ -22,9 +22,9 @@ instance consAll :: (ConstainsAll tail b, Row.Cons s any btail b) => ConstainsAl
 instance nilAll :: ConstainsAll RL.Nil b 
 
 {-- By using this class we can get pretty good error messages --}
-class TSCompatible (s :: Symbol) ta tb (b :: B.Boolean) | ta -> tb, tb -> ta
-instance onlyTrue :: TSCompatible s ta tb B.True
-instance sameType :: TSCompatible s ta ta B.False
+class TSCompatible (s :: Symbol) a b (eq :: B.Boolean) | a -> b, b -> a
+instance onlyTrue :: TSCompatible s a b B.True
+instance sameType :: TSCompatible s a a B.False
 
 class IsOptional (s :: Symbol) (m :: RL.RowList) (b :: B.Boolean) | s m -> b 
 instance consOpt :: (Sym.Equals s s2 eq, B.Not eq neq, IsOptional s tail tailopt, B.And neq tailopt opt) => IsOptional s (RL.Cons s2 any tail) opt
@@ -41,6 +41,7 @@ else instance anyIsEq :: IsEq a Any o B.True
 else instance unionIsEq :: (RL.RowToList b rl, TsTypeExists a rl o eq) 
     => IsEq a (OneOf b) o eq
 else instance intIsNumber :: IsEq Int Number o B.True
+else instance constString :: IsEq (StringConst s) String o B.True
 else instance nullElem :: IsEq (Nullable ReactElement) ReactNode o B.True
 else instance reactElement :: IsReactElement a => IsEq a ReactNode o B.True
 else instance effectAsFn1 :: IsEq (Effect a) (EffectFn1 e a) o B.True
