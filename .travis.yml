@@ -6,4 +6,4 @@ install:
   - npm install purescript@0.12.0 pulp bower -g
   - bower install
 script:
-  - pulp build
+  - pulp test
