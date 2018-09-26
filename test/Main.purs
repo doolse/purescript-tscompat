@@ -8,7 +8,7 @@ import Data.Nullable (Nullable)
 import Data.String (joinWith)
 import Data.Symbol (class IsSymbol, SProxy(..), reflectSymbol)
 import Data.TSCompat (Any, OneOf, OptionRecord)
-import Data.TSCompat.Class (class IsEq)
+import Data.TSCompat.Class (class IsEq, OptionField)
 import Effect (Effect)
 import Effect.Class.Console (log)
 import Effect.Uncurried (EffectFn1)
@@ -54,6 +54,7 @@ instance optRecordString :: (RL.RowToList o rl, RL.RowToList m rlm, RowListAsStr
     in "{" <> (joinWith ", " $ nameOptType <$> (Array.fromFoldable $ asStrings (RLProxy :: RLProxy rl))) <> "}"
 
 instance anyString :: TypeAsString Any where asString _ = "Any"
+instance optField :: TypeAsString a => TypeAsString (OptionField o a) where asString _ = asString (Proxy :: Proxy a)
 
 bTrue :: BProxy True
 bTrue = BProxy
@@ -79,22 +80,22 @@ anyT = Proxy
 nullableT :: forall a. Proxy a -> Proxy (Nullable a)
 nullableT _ = Proxy
 
-compare :: forall a b o eq. 
-    IsEq a b o eq => 
+compare :: forall a b eq. 
+    IsEq a b eq => 
     TypeAsString a => 
     TypeAsString b => 
-    BProxy o -> BProxy eq -> String -> Proxy a -> Proxy b -> Effect Unit
-compare _ _ op a b = log $ asString a <> op <> asString b
+    BProxy eq -> String -> Proxy a -> Proxy b -> Effect Unit
+compare _ op a b = log $ asString a <> op <> asString b
 
 oneOf2 :: forall a b. Proxy a -> Proxy b -> Proxy (OneOf (typed::a,typed::b))
 oneOf2 _ _ = Proxy
 
-compareEQ :: forall a b. IsEq a b False True => TypeAsString a => TypeAsString b => Proxy a -> Proxy b -> Effect Unit
-compareEQ = compare bFalse bTrue " = "
-compareNEQ :: forall a b. IsEq a b False False => TypeAsString a => TypeAsString b => Proxy a -> Proxy b -> Effect Unit
-compareNEQ = compare bFalse bFalse " /= "
-compareOptEQ :: forall a b. IsEq a b True True => TypeAsString a => TypeAsString b => Proxy a -> Proxy b -> Effect Unit
-compareOptEQ = compare bTrue bTrue " o= "
+compareEQ :: forall a b. IsEq a b True => TypeAsString a => TypeAsString b => Proxy a -> Proxy b -> Effect Unit
+compareEQ = compare bTrue " = "
+compareNEQ :: forall a b. IsEq a b False => TypeAsString a => TypeAsString b => Proxy a -> Proxy b -> Effect Unit
+compareNEQ = compare bFalse " /= "
+compareOptEQ :: forall a b. IsEq a (OptionField True b) True => TypeAsString a => TypeAsString b => Proxy a -> Proxy b -> Effect Unit
+compareOptEQ pa pb = compare bTrue " o= " pa (Proxy :: Proxy (OptionField True b))
 
 main :: Effect Unit 
 main = do 
