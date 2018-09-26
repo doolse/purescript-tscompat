@@ -13,7 +13,7 @@ In conjuction with [purescript-readts](http://github.com/doolse/purescript-readt
 |`Any`|`any`|Anything|
 |`OneOf (typed :: A, typed :: B, typed :: C)`|`(A\|B\|C)`|Either one of A,B or C|
 |`StringConst "text"`|`"text"`|An exact string|
-|`OptionRecord (optional :: A, mandatory :: B) (mandatory :: B)`|`{optional? : A; mandatory: B }`|A record which must contain all the fields in the second row type
+|`OptionRecord (optional :: A, mandatory :: B) (mandatory :: B)`|`{optional? : A; mandatory: B }`|A record which optionally contains fields from the first row but must contain all the fields specified in the second. All fields are checked with IsTSEq.
 
 In addition to these equivalences the following additional rules apply:
 
