@@ -9,7 +9,6 @@ import Prim.Row as Row
 import Prim.RowList as RL
 import React (class IsReactElement, ReactElement)
 import Type.Data.Boolean as B
-import Type.Data.Symbol as Sym
 import Unsafe.Coerce (unsafeCoerce)
 
 class TsTypeExists t (rl :: RL.RowList) (opt:: B.Boolean) (o :: B.Boolean) | t rl -> o
@@ -27,7 +26,8 @@ instance onlyTrue :: TSCompatible s a b B.True
 instance sameType :: TSCompatible s a a B.False
 
 class IsOptional (s :: Symbol) (m :: RL.RowList) (b :: B.Boolean) | s m -> b 
-instance consOpt :: (Sym.Equals s s2 eq, B.Not eq neq, IsOptional s tail tailopt, B.And neq tailopt opt) => IsOptional s (RL.Cons s2 any tail) opt
+instance consOpt :: IsOptional s (RL.Cons s any tail) B.False
+else instance consOpt2 :: IsOptional s tail b => IsOptional s (RL.Cons s2 any tail) b
 instance nilOpt :: IsOptional s RL.Nil B.True
 
 class IsEqRowList (l :: RL.RowList) (b :: # Type) (m :: RL.RowList)

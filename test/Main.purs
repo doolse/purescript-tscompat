@@ -96,7 +96,6 @@ compareNEQ = compare bFalse bFalse " /= "
 compareOptEQ :: forall a b. IsEq a b True True => TypeAsString a => TypeAsString b => Proxy a -> Proxy b -> Effect Unit
 compareOptEQ = compare bTrue bTrue " o= "
 
-
 main :: Effect Unit 
 main = do 
   compareEQ intT numberT
@@ -114,3 +113,4 @@ main = do
             (Proxy :: Proxy (OptionRecord (disabled::Boolean,opt::OneOf (typed::String, typed::Int)) (disabled::Boolean)))
   compareEQ (Proxy :: Proxy (Effect Unit)) (Proxy :: Proxy (EffectFn1 String Unit)) 
   compareNEQ (Proxy :: Proxy (Effect String)) (Proxy :: Proxy (EffectFn1 String Unit)) 
+  -- compareEQ (Proxy :: Proxy {disabled::Boolean}) (Proxy :: Proxy (OptionRecord (disabled::Boolean,open::Boolean) (open::Boolean)))
