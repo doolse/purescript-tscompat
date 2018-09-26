@@ -1,5 +1,8 @@
 # purescript-tscompat
 
+[![Latest release](https://pursuit.purescript.org/packages/purescript-tscompat/badge)](https://pursuit.purescript.org/packages/purescript-tscompat)
+[![Travis Build](https://travis-ci.org/doolse/purescript-tscompat.svg?branch=master)](https://travis-ci.org/doolse/purescript-tscompat)
+
 This library aims to provide types and type classes for typechecking interop with Typescript code without the need for conversion. 
 
 In conjuction with [purescript-readts](http://github.com/doolse/purescript-readts), purescript bindings for JS libraries which are written in Typescript or have type definitions can be created with little effort.
