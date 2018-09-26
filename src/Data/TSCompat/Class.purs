@@ -2,12 +2,10 @@ module Data.TSCompat.Class where
 
 import Data.Nullable (Nullable)
 import Data.TSCompat (Any, OneOf, OptionRecord, StringConst)
-import Data.TSCompat.React (ReactNode)
 import Effect (Effect)
 import Effect.Uncurried (EffectFn1, EffectFn2)
 import Prim.Row as Row
 import Prim.RowList as RL
-import React (class IsReactElement, ReactElement)
 import Type.Data.Boolean as B
 import Unsafe.Coerce (unsafeCoerce)
 
@@ -44,8 +42,6 @@ else instance unionIsEq :: (RL.RowToList b rl, TsTypeExists a rl eq)
     => IsEq a (OneOf b) eq
 else instance intIsNumber :: IsEq Int Number B.True
 else instance constString :: IsEq (StringConst s) String B.True
-else instance nullElem :: IsEq (Nullable ReactElement) ReactNode B.True
-else instance reactElement :: IsReactElement a => IsEq a ReactNode B.True
 else instance effectAsFn1 :: IsEq (Effect a) (EffectFn1 e a) B.True
 else instance effectAsFn2 :: IsEq (Effect a) (EffectFn2 e b a) B.True
 else instance effectFn1asFn2 :: IsEq (EffectFn1 e a) (EffectFn2 e b a) B.True
