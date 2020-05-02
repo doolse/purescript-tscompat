@@ -1,0 +1,15 @@
+{-
+Welcome to a Spago project!
+You can edit this file as you like.
+-}
+{ name = "tscompat"
+, dependencies =
+  [ "react"
+  , "lists"
+  , "strings"
+  , "typelevel-prelude"
+  , "console"
+  ]
+, packages = ./packages.dhall
+, sources = [ "src/**/*.purs", "test/**/*.purs" ]
+}
